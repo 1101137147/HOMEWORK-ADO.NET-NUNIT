@@ -9,7 +9,6 @@
 <body>
     <form id="form1" runat="server">
     <div>
-    
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:HomeworkConnectionString %>" SelectCommand="SELECT * FROM [Student]"></asp:SqlDataSource>
     
     </div>
