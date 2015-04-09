@@ -88,29 +88,29 @@ namespace HW0327
 
         protected void btndel_Click(object sender, EventArgs e)
         {
-            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["HomeworkConnectionString"].ConnectionString))
-            {
-                using (SqlCommand cmd = cn.CreateCommand())
-                {
-                    cmd.CommandText = "select * from Student";
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["HomeworkConnectionString"].ConnectionString);
 
-                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                    {
-                        SqlCommandBuilder builder = new SqlCommandBuilder(da);
-                        DataSet ds = new DataSet();
-                        ds.Clear();
-                        da.Fill(ds);
-                        DataTable dt = ds.Tables[0];
-                        DataRow dr = dt.Select(string.Format("StudentId= {0}", Studentid.Text)).First();
-                        dr.Delete();
-                        da.Update(dt);
-                        btnselect_Click(null, null);
-                    }
-                }
+            string sqlStatement = "DELETE FROM Student WHERE StudentId = @StudentId";
+
+            try
+            {
+                connection.Open();
+                SqlCommand cmd = new SqlCommand(sqlStatement, connection);
+                cmd.Parameters.AddWithValue("@StudentId", Studentid.Text);
+                cmd.CommandType = CommandType.Text;
+                cmd.ExecuteNonQuery();
+
+            }
+            finally
+            {
+                connection.Close();
+                btnselect_Click(null, null);
+            }
+        }
             }
         }
 
-    }
+    
 
 
-}
+
