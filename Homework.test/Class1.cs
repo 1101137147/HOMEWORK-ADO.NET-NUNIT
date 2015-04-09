@@ -14,8 +14,8 @@ namespace WebApplication1.Tests
         public void CalYear()
         {
             Year.year cal = new Year.year();
-            int inputAge = 30;
-            int expect = 1988;
+            int inputAge = 21;
+            int expect = 1994;
 
             Assert.AreEqual(expect, cal.GetBirthYear(inputAge, Year.year.YearFormat.w));
         }
